@@ -251,15 +251,18 @@ export default function Home() {
 
           {/* Photo */}
           <div className="mx-auto sm:mx-0">
-            <Image
-              src="public/ArushManem.JPG"
-              alt="Arush Manem portrait"
-              width={220}
-              height={220}
-              priority
-              className="rounded-3xl border border-zinc-200 shadow-sm"
-            />
+            <div className="relative h-[220px] w-[220px] overflow-hidden rounded-3xl border border-zinc-200 shadow-sm">
+              <Image
+                src="/ArushManem.JPG"
+                alt="Arush Manem portrait"
+                fill
+                priority
+                sizes="220px"
+                className="object-cover"
+              />
+            </div>
           </div>
+
         </div>
       </section>
 
