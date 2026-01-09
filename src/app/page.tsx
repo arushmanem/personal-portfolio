@@ -37,7 +37,7 @@ export default function Home() {
     name: "Arush Manem",
     tagline: "I build software teams depend on.",
     subtag:
-      "Computer Science & Data Science student at the University of Minnesota with experience building automation, analytics workflows, and full-stack applications used by business and operations teams.",
+      "Honors Computer Science & Data Science student at the University of Minnesota with experience building automation, analytics workflows, and full-stack applications used by business and operations teams.",
     about: [
       "I’m interested in roles where I can combine technical problem-solving with real-world impact. I enjoy working on systems that sit between engineering, data, and business — especially when reliability, clarity, and usability matter as much as performance.",
       "Through internships and projects, I’ve learned that most real problems don’t come with clean inputs or perfect requirements. I focus on building systems that can handle ambiguity, explain their outputs, and earn trust from the people who use them.",
