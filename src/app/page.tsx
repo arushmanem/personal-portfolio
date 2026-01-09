@@ -35,7 +35,7 @@ type TimelineItem = {
 export default function Home() {
   const profile = {
     name: "Arush Manem",
-    tagline: "I build software teams depend on.",
+    tagline: "I turn fragile workflows into dependable systems.",
     subtag:
       "Honors Computer Science & Data Science student at the University of Minnesota with experience building automation, analytics workflows, and full-stack applications used by business and operations teams.",
     about: [
@@ -113,22 +113,26 @@ export default function Home() {
   const experience: TimelineItem[] = [
     {
       role:
-        "Software Engineering Intern — Automation & Data Systems - Robotic Process Automation (RPA)",
+        "Software Engineering Intern — Automation & Data Systems (Robotic Process Automation)",
       org: "HealthPartners",
       location: "Bloomington, MN",
       date: "June 2022 – Present",
-      intro:
-        "At HealthPartners, I worked on automating workflows, from sorting large volumes of data across shared drives and Excel files to navigating complex web applications that required repeated manual input. These automations reallocated countless hours of manual effort and contributed to over $1,000,000 in annual operational savings. My work was used directly by business teams and analysts supporting healthcare operations, meaning the systems I built weren’t experiments, they were part of real, day-to-day workflows. Because these workflows depended on complex web applications and inconsistent inputs, reliability was critical: when automation failed, real work stopped.",
+      intro: `
+        At HealthPartners, I designed and built production-grade automation systems used daily by business teams and analysts supporting healthcare operations.
+        
+        These automations replaced large volumes of manual, repetitive work across data entry, reporting, and web-based workflows, saving thousands of hours annually and contributing to over $1,000,000 in operational value.
+        
+        The systems I built were not proofs of concept — they were relied on in real workflows where failures directly blocked downstream work, making reliability, observability, and correctness essential.
+        `.trim(),
       bullets: [
-        "Most failures weren’t logic errors — they were caused by fragile UI selectors, missing or inconsistent data fields, and timing issues when scraping dynamic applications.",
-        "Debugged selector failures by inspecting underlying HTML rather than relying on visual recorders.",
-        "Rewrote selectors to be specific enough to avoid ambiguity, while remaining flexible enough to support many transaction variants.",
-        "Added exception handling for missing or malformed data so workflows didn’t crash unpredictably.",
-        "Introduced delays where needed to ensure pages and fields fully loaded before scraping, reducing flaky failures.",
-        "Implemented structured logging and retries to make failures traceable and recoverable for both developers and stakeholders.",
+        "Built end-to-end automations that processed Excel files with 4,000+ rows, programmatically mapping and entering data across multiple screens of complex web applications while validating field-level accuracy at each step.",
+        "Designed robust error handling and logging pipelines to capture malformed data, missing fields, and unexpected UI states, enabling efficient debugging using large sets of sample and edge-case inputs.",
+        "Implemented automated output reports and email notifications to summarize successful runs and surface failed transactions for business stakeholders.",
+        "Developed payer-specific automation logic, including prompt-engineered workflows tailored to multiple external systems, working with data from Fortune 500 healthcare organizations.",
+        "Solved frequent automation failures caused by fragile UI selectors, inconsistent inputs, and timing issues by inspecting underlying HTML, rewriting selectors for stability, and introducing adaptive waits and retries.",
+        "Automated authentication and user access flows for client systems, ensuring secure and repeatable execution across different environments.",
+        "Collaborated closely with business teams and analysts to translate operational requirements into reliable, maintainable automation solutions that scaled across transaction types and clients.",
       ],
-      reflection:
-        "We live in an age where technology can sift through data faster than people can count to five, yet many industries are still weighed down by tedious and repetitive work. Working on production automation taught me that technology’s real value isn’t speed alone, but leverage — freeing people from repetitive work so they can focus on higher-impact problems. Designing systems with that mindset changed how I approach engineering decisions."
     },
   ];
   
@@ -145,7 +149,7 @@ export default function Home() {
       "Avoiding hindsight bias / realistic evaluation setups",
       "Communicating insights clearly (summaries + visuals)",
     ],
-    "Tools & Tech": ["Python", "OCaml", "SQL", "PyTorch", "Java", "C/C++", "R", "React", "Node.js", "HTML/CSS", "GitHub", "Jira", "Docker", "Powershell", "NumPy", "Pandas", "Matplotlib", "RStudio"],
+    "Tools & Tech": ["Python", "OCaml", "SQL", "PyTorch", "Java", "C/C++", "R", "React", "Node.js", "HTML/CSS", "TypeScript", "GitHub", "Jira", "Docker", "Powershell", "NumPy", "Pandas", "Matplotlib", "RStudio"],
     "Collaboration": [
       "Stakeholder communication",
       "Working with business teams and analysts",
@@ -155,7 +159,7 @@ export default function Home() {
 
   function Chip({ label }: { label: string }) {
     return (
-      <span className="rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs text-zinc-700">
+      <span className="chip rounded-full px-2.5 py-1 text-xs">
         {label}
       </span>
     );
@@ -172,32 +176,32 @@ export default function Home() {
       <div className="flex items-end justify-between gap-4">
         <div>
           <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
-          {subtitle ? <p className="mt-1 text-sm text-zinc-600">{subtitle}</p> : null}
+          {subtitle ? <p className="mt-1 text-sm text-muted">{subtitle}</p> : null}
         </div>
       </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-white text-zinc-900">
+    <main className="min-h-screen text-[var(--foreground)]">
       {/* Header */}
-      <header className="sticky top-0 z-10 border-b border-zinc-200 bg-white/80 backdrop-blur">
+      <header className="sticky top-0 z-10 border-b bg-[rgba(255,255,255,0.70)] backdrop-blur dark:bg-[rgba(11,11,11,0.65)] border-[color:var(--border)]">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-3">
           <div className="font-semibold tracking-tight">{profile.name}</div>
-          <nav className="flex flex-wrap gap-4 text-sm text-zinc-700">
-            <a className="hover:text-zinc-900" href="#projects">
+          <nav className="flex flex-wrap gap-4 text-sm text-muted">
+            <a className="hover:text-[var(--foreground)] transition" href="#projects">
               Projects
             </a>
-            <a className="hover:text-zinc-900" href="#experience">
+            <a className="hover:text-[var(--foreground)] transition" href="#experience">
               Experience
             </a>
-            <a className="hover:text-zinc-900" href="#skills">
+            <a className="hover:text-[var(--foreground)] transition" href="#skills">
               Skills
             </a>
-            <a className="hover:text-zinc-900" href="#about">
+            <a className="hover:text-[var(--foreground)] transition" href="#about">
               About
             </a>
-            <a className="hover:text-zinc-900" href="#contact">
+            <a className="hover:text-[var(--foreground)] transition" href="#contact">
               Contact
             </a>
           </nav>
@@ -208,22 +212,24 @@ export default function Home() {
         <div className="grid items-center gap-8 sm:grid-cols-[1fr_220px]">
           {/* Text */}
           <div>
-            <p className="text-sm text-zinc-600">{education.majors} @ UMN</p>
+            <p className="text-sm text-muted">{education.majors} @ UMN</p>
             <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
               Hi, I’m {profile.name.split(" ")[0]}.{" "}
-              <span className="text-zinc-900">{profile.tagline}</span>
+              <span className="text-gradient">{profile.tagline}</span>
             </h1>
-            <p className="mt-4 max-w-3xl text-zinc-700">{profile.subtag}</p>
+            <p className="mt-4 max-w-3xl text-[color:var(--foreground)]/80">
+              {profile.subtag}
+            </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
               <a
-                className="rounded-2xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
+                className="btn-primary focus-ring rounded-2xl px-4 py-2 text-sm font-medium"
                 href="#contact"
               >
                 Contact
               </a>
               <a
-                className="rounded-2xl border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-50"
+                className="btn-secondary focus-ring rounded-2xl px-4 py-2 text-sm font-medium"
                 href={profile.links.resumeHref}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -231,7 +237,7 @@ export default function Home() {
                 Resume
               </a>
               <a
-                className="rounded-2xl border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-50"
+                className="btn-secondary focus-ring rounded-2xl px-4 py-2 text-sm font-medium"
                 href={profile.links.linkedin}
                 target="_blank"
                 rel="noreferrer"
@@ -239,7 +245,7 @@ export default function Home() {
                 LinkedIn
               </a>
               <a
-                className="rounded-2xl border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-50"
+                className="btn-secondary focus-ring rounded-2xl px-4 py-2 text-sm font-medium"
                 href={profile.links.github}
                 target="_blank"
                 rel="noreferrer"
@@ -251,7 +257,8 @@ export default function Home() {
 
           {/* Photo */}
           <div className="mx-auto sm:mx-0">
-            <div className="relative h-[220px] w-[220px] overflow-hidden rounded-3xl border border-zinc-200 shadow-sm">
+            <div className="relative h-[220px] w-[220px] overflow-hidden rounded-3xl surface-strong">
+              <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-[rgba(180,83,9,0.25)]" />
               <Image
                 src="/ArushManem.JPG"
                 alt="Arush Manem portrait"
@@ -270,8 +277,8 @@ export default function Home() {
       {/* About */}
       <section id="about" className="mx-auto max-w-5xl px-5 py-10">
         <SectionTitle title="About" />
-        <div className="mt-6 rounded-3xl border border-zinc-200 p-6 shadow-sm">
-          <div className="space-y-3 text-sm text-zinc-700">
+        <div className="mt-6 rounded-3xl surface surface-hover p-6">
+          <div className="space-y-3 text-sm text-[color:var(--foreground)]/80">
             {profile.about.map((p) => (
               <p key={p}>{p}</p>
             ))}
@@ -281,16 +288,16 @@ export default function Home() {
 
       {/* Education */}
       <section className="mx-auto max-w-5xl px-5 pb-10">
-        <div className="rounded-3xl border border-zinc-200 p-6 shadow-sm">
+        <div className="rounded-3xl surface surface-hover p-6">
           <SectionTitle title="Education" />
           <div className="mt-4 flex flex-wrap items-baseline justify-between gap-2">
             <div>
               <div className="font-semibold">{education.school}</div>
-              <div className="text-sm text-zinc-600">{education.location}</div>
+              <div className="text-sm text-muted">{education.location}</div>
             </div>
-            <div className="text-sm text-zinc-600">{education.grad}</div>
+            <div className="text-sm text-muted">{education.grad}</div>
           </div>
-          <div className="mt-3 text-sm text-zinc-700">
+          <div className="mt-3 text-sm text-[color:var(--foreground)]/80">
             Majors: {education.majors} · GPA: {education.gpa}
           </div>
         </div>
@@ -306,14 +313,14 @@ export default function Home() {
           {caseStudies.map((p) => (
             <article
               key={p.id}
-              className="rounded-3xl border border-zinc-200 p-6 shadow-sm"
+              className="rounded-3xl surface surface-hover p-6"
             >
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <div>
                   <h3 className="text-xl font-semibold tracking-tight">{p.title}</h3>
-                  <p className="mt-1 text-sm text-zinc-600">{p.subtitle}</p>
+                  <p className="mt-1 text-sm text-muted">{p.subtitle}</p>
                 </div>
-                <div className="text-sm text-zinc-600">{p.metaRight}</div>
+                <div className="text-sm text-muted">{p.metaRight}</div>
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
@@ -324,15 +331,15 @@ export default function Home() {
 
               <div className="mt-5 grid gap-5">
                 {p.sections.map((s) => (
-                  <section key={s.title} className="rounded-2xl bg-zinc-50 p-5">
+                  <section key={s.title} className="rounded-2xl bg-[rgba(180,83,9,0.06)] p-5 border border-[color:var(--border)]">
                     <h4 className="font-semibold">{s.title}</h4>
-                    <div className="mt-2 space-y-3 text-sm text-zinc-700">
+                    <div className="mt-2 space-y-3 text-sm text-[color:var(--foreground)]/80">
                       {s.body.map((para) => (
                         <p key={para}>{para}</p>
                       ))}
                     </div>
                     {s.bullets?.length ? (
-                      <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-zinc-700">
+                      <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-[color:var(--foreground)]/80">
                         {s.bullets.map((b) => (
                           <li key={b}>{b}</li>
                         ))}
@@ -346,7 +353,8 @@ export default function Home() {
                 <div className="mt-5 flex flex-wrap gap-4 text-sm">
                   {p.links.github ? (
                     <a
-                      className="font-medium text-zinc-900 underline underline-offset-4 hover:text-zinc-700"
+                      className="font-medium underline underline-offset-4 hover:opacity-80 transition"
+                      style={{ color: "var(--accent)" }}
                       href={p.links.github}
                       target="_blank"
                       rel="noreferrer"
@@ -356,7 +364,8 @@ export default function Home() {
                   ) : null}
                   {p.links.demo ? (
                     <a
-                      className="font-medium text-zinc-900 underline underline-offset-4 hover:text-zinc-700"
+                      className="font-medium underline underline-offset-4 hover:opacity-80 transition"
+                      style={{ color: "var(--accent)" }}
                       href={p.links.demo}
                       target="_blank"
                       rel="noreferrer"
@@ -379,32 +388,34 @@ export default function Home() {
         />
         <div className="mt-6 space-y-4">
           {experience.map((e) => (
-            <div key={e.role} className="rounded-3xl border border-zinc-200 p-6 shadow-sm">
+            <div key={e.role} className="rounded-3xl surface surface-hover p-6">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <div>
                   <div className="text-lg font-semibold">{e.role}</div>
-                  <div className="text-sm text-zinc-600">
+                  <div className="text-sm text-muted">
                     {e.org}
                     {e.location ? ` · ${e.location}` : ""}
                   </div>
                 </div>
-                <div className="text-sm text-zinc-600">{e.date}</div>
+                <div className="text-sm text-muted">{e.date}</div>
               </div>
 
               {e.intro ? (
-                <p className="mt-4 max-w-3xl text-sm text-zinc-700">{e.intro}</p>
+                <p className="mt-4 max-w-3xl text-sm text-[color:var(--foreground)]/80 whitespace-pre-line">
+                  {e.intro}
+                </p>
               ) : null}
 
-              <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-zinc-700">
+              <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-[color:var(--foreground)]/80">
                 {e.bullets.map((b) => (
                   <li key={b}>{b}</li>
                 ))}
               </ul>
 
               {e.reflection ? (
-                <div className="mt-5 rounded-2xl bg-zinc-50 p-5">
+                <div className="mt-5 rounded-2xl bg-[rgba(180,83,9,0.06)] p-5 border border-[color:var(--border)]">
                   <div className="text-sm font-semibold">Reflection</div>
-                  <p className="mt-2 text-sm text-zinc-700">{e.reflection}</p>
+                  <p className="mt-2 text-sm text-[color:var(--foreground)]/80">{e.reflection}</p>
                 </div>
               ) : null}
             </div>
@@ -419,7 +430,7 @@ export default function Home() {
         />
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {Object.entries(skills).map(([group, items]) => (
-            <div key={group} className="rounded-3xl border border-zinc-200 p-6 shadow-sm">
+            <div key={group} className="rounded-3xl surface surface-hover p-6">
               <div className="font-semibold">{group}</div>
               <div className="mt-3 flex flex-wrap gap-2">
                 {items.map((s) => (
@@ -433,17 +444,17 @@ export default function Home() {
 
       {/* Contact */}
       <section id="contact" className="mx-auto max-w-5xl px-5 py-14">
-        <div className="rounded-3xl border border-zinc-200 p-8 shadow-sm">
+        <div className="rounded-3xl surface surface-hover p-8">
           <SectionTitle title="Contact" subtitle="Email is best — I usually respond quickly." />
           <div className="mt-5 flex flex-wrap gap-3">
             <a
-              className="rounded-2xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800"
+              className="btn-primary focus-ring rounded-2xl px-4 py-2 text-sm font-medium"
               href={`mailto:${profile.links.email}`}
             >
               {profile.links.email}
             </a>
             <a
-              className="rounded-2xl border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-50"
+              className="btn-secondary focus-ring rounded-2xl px-4 py-2 text-sm font-medium"
               href={profile.links.linkedin}
               target="_blank"
               rel="noreferrer"
@@ -451,7 +462,7 @@ export default function Home() {
               LinkedIn
             </a>
             <a
-              className="rounded-2xl border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-50"
+              className="btn-secondary focus-ring rounded-2xl px-4 py-2 text-sm font-medium"
               href={profile.links.github}
               target="_blank"
               rel="noreferrer"
@@ -459,7 +470,7 @@ export default function Home() {
               GitHub
             </a>
             <a
-              className="rounded-2xl border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-50"
+              className="btn-secondary focus-ring rounded-2xl px-4 py-2 text-sm font-medium"
               href={profile.links.resumeHref}
               target="_blank"
               rel="noopener noreferrer"
@@ -469,7 +480,7 @@ export default function Home() {
           </div>
         </div>
 
-        <footer className="mt-8 pb-6 text-sm text-zinc-500">
+        <footer className="mt-8 pb-6 text-sm text-muted">
           © {new Date().getFullYear()} {profile.name} · Built with Next.js
         </footer>
       </section>
