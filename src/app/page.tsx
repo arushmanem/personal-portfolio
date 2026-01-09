@@ -252,7 +252,7 @@ export default function Home() {
           {/* Photo */}
           <div className="mx-auto sm:mx-0">
             <Image
-              src="/me.jpg"
+              src="/ArushManem.JPG"
               alt="Arush Manem portrait"
               width={220}
               height={220}
