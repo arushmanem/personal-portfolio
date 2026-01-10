@@ -55,7 +55,7 @@ export default function Home() {
     location: "Minneapolis, MN",
     majors: "Computer Science & Data Science",
     grad: "May 2027",
-    gpa: "3.86",
+    gpa: "3.76",
   };
 
   const caseStudies: CaseStudy[] = [
