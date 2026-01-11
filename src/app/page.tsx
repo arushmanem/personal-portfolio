@@ -46,7 +46,7 @@ export default function Home() {
       email: "manem008@umn.edu",
       linkedin: "https://www.linkedin.com/in/arush-manem",
       github: "https://github.com/arushmanem",
-      resumeHref: "/ArushManemResume1.pdf",
+      resumeHref: "/ArushManemResume.pdf",
     },
   };
 
