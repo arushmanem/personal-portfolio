@@ -37,10 +37,10 @@ export default function Home() {
     name: "Arush Manem",
     tagline: "I turn fragile workflows into dependable systems.",
     subtag:
-      "Honors Computer Science & Data Science student at the University of Minnesota with experience building automation, analytics workflows, and full-stack applications used by business and operations teams.",
+      "Honors Data Science and Computer Science student at the University of Minnesota with experience building automation, analytics workflows, and full-stack applications used by business and operations teams.",
     about: [
-      "I’m interested in roles where I can combine technical problem-solving with real-world impact. I enjoy working on systems that sit between engineering, data, and business — especially when reliability, clarity, and usability matter as much as performance.",
-      "Through internships and projects, I’ve learned that most real problems don’t come with clean inputs or perfect requirements. I focus on building systems that can handle ambiguity, explain their outputs, and earn trust from the people who use them.",
+     "I’m interested in roles where I can combine quantitative analysis with technical problem-solving to create real-world impact. I enjoy working at the intersection of data, engineering, and business — building models and systems that turn messy information into clear, actionable decisions.",
+      "Through internships and projects, I’ve learned that real problems rarely come with clean inputs or perfect requirements. I focus on developing reliable, explainable solutions that stakeholders can trust and use with confidence."
     ],
     links: {
       email: "manem008@umn.edu",
@@ -445,7 +445,7 @@ export default function Home() {
       {/* Contact */}
       <section id="contact" className="mx-auto max-w-5xl px-5 py-14">
         <div className="rounded-3xl surface surface-hover p-8">
-          <SectionTitle title="Contact" subtitle="Email is best — I usually respond quickly." />
+          <SectionTitle title="Contact"/>
           <div className="mt-5 flex flex-wrap gap-3">
             <a
               className="btn-primary focus-ring rounded-2xl px-4 py-2 text-sm font-medium"
