@@ -35,7 +35,7 @@ type TimelineItem = {
 export default function Home() {
   const profile = {
     name: "Arush Manem",
-    tagline: "I turn fragile workflows into dependable systems.",
+    tagline: "Welcome to my portfolio.",
     subtag:
       "Honors Data Science and Computer Science student at the University of Minnesota with experience building automation, analytics workflows, and full-stack applications used by business and operations teams.",
     about: [
@@ -46,7 +46,7 @@ export default function Home() {
       email: "manem008@umn.edu",
       linkedin: "https://www.linkedin.com/in/arush-manem",
       github: "https://github.com/arushmanem",
-      resumeHref: "/ArushManemResume.pdf",
+      resumeHref: "/ArushManem_Resume_Updated.docx",
     },
   };
 
@@ -55,7 +55,7 @@ export default function Home() {
     location: "Minneapolis, MN",
     majors: "Computer Science & Data Science",
     grad: "May 2027",
-    gpa: "3.76",
+    gpa: "3.78",
   };
 
   const caseStudies: CaseStudy[] = [
@@ -108,9 +108,94 @@ export default function Home() {
         },
       ],
     },
+    {
+      id: "insurance-risk-assessor",
+      title: "Insurance Risk Assessor",
+      subtitle: "Machine Learning System for Cost Projection",
+      metaRight: "July 2025",
+      tech: ["Python", "scikit-learn", "Pandas", "SHAP", "Jupyter"],
+      links: {},
+      sections: [
+        {
+          title: "Problem",
+          body: [
+            "Predict insurance costs from a mix of demographic and health factors, with enough explainability that a non-technical stakeholder can see why the model behaved the way it did. Accuracy alone isn't enough if the model is a black box.",
+          ],
+        },
+        {
+          title: "Implementation Decisions",
+          body: [
+            "I built a modular ETL pipeline so preprocessing, outlier detection, and feature generation were clean separate steps — easy to swap or extend later. The model itself is a Random Forest regressor, chosen for a balance of accuracy and interpretability with tools like SHAP.",
+          ],
+          bullets: [
+            "Engineered interaction features (smoker–age, BMI–age) that captured nonlinear effects the base features couldn't.",
+            "Tuned the Random Forest to R² = 0.88 and MAE ≈ $2,600 — accurate enough to be meaningful for cost projection.",
+            "Packaged the model with Pickle for reproducible, real-time deployment.",
+            "Applied SHAP explainability to interpret which features drove individual predictions, so the model could be defended to stakeholders rather than just reported.",
+          ],
+        },
+        {
+          title: "What I Learned",
+          body: [
+            "Explainability isn't optional. Stakeholders rarely trust a number without understanding where it came from, and SHAP turned out to be the single most useful tool for closing that trust gap — far more than raw accuracy metrics.",
+          ],
+        },
+      ],
+    },
+    {
+      id: "tcp-marketplace-server",
+      title: "Multi-Threaded TCP Marketplace Server",
+      subtitle: "Operating Systems Coursework — Systems Programming in C",
+      metaRight: "CSCI 4061 PA4 · April 2026",
+      tech: ["C", "POSIX Threads", "BSD Sockets", "Mutexes", "Signals"],
+      links: {},
+      sections: [
+        {
+          title: "Problem",
+          body: [
+            "Build a multi-threaded TCP server simulating a marketplace where many clients connect concurrently to buy and sell from a shared inventory. The challenge is concurrency correctness — multiple threads touching the same shared state without race conditions — plus graceful shutdown and basic message obfuscation between client and server.",
+          ],
+        },
+        {
+          title: "Implementation Decisions",
+          body: [
+            "The server is structured around per-client worker threads, with the main thread accepting connections and dispatching work. Shared inventory state lives behind a mutex, so every read or write is serialized. Client–server messages are obfuscated with a Caesar-cipher layer at both ends.",
+          ],
+          bullets: [
+            "Used pthreads for concurrent client handling, with mutex-protected critical sections around all inventory reads and writes.",
+            "Implemented a SIGTERM signal handler for graceful shutdown — draining in-flight requests and cleaning up resources across worker threads before exiting.",
+            "Added a Caesar-cipher message layer between client and server as a simple symmetric obfuscation step.",
+            "Built socket setup, the accept loop, and per-client request parsing in pure C using BSD sockets.",
+          ],
+        },
+        {
+          title: "What I Learned",
+          body: [
+            "Concurrency is much harder than it looks on paper. The most useful lessons came from debugging subtle race conditions where two clients would simultaneously try to modify the same inventory item — issues that didn't reproduce reliably and only showed up under load. Getting comfortable with mutex granularity, deadlock avoidance, and signal handling in a multi-threaded context was the real takeaway.",
+          ],
+        },
+      ],
+    },
   ];
 
   const experience: TimelineItem[] = [
+    {
+      role: "Data & Analytics Intern — Analytics Development Program, CRC War Room",
+      org: "UnitedHealth Group (UHG)",
+      location: "Minnetonka, MN",
+      date: "Summer 2026 (Incoming)",
+      intro: `
+        This summer I'll be joining UHG's Analytics Development Program as part of the CRC War Room — a cross-functional team focused on solving the most complex, systemic member issues across process, policy, and technology, with work that impacts millions of members annually.
+
+        My focus will be building a clear measurement strategy for War Room projects: turning project activity into validated impact metrics like member impact, call obviation, and operational outcomes. The goal is to evolve War Room reporting from "what we worked on" to "what changed because of our work."
+        `.trim(),
+      bullets: [
+        "Partner with War Room leaders, project managers, and triage analysts to define core success metrics aligned to enterprise goals (member impact, call obviation, repeat-call reduction, operational efficiency).",
+        "Design dashboards, trackers, and reporting frameworks that ingest project-level data and translate outcomes into validated impact metrics over time.",
+        "Translate business questions from project managers and analysts into analytic requirements, and analytic outputs back into clear executive-ready narratives.",
+        "Document measurement methodologies and assumptions, and present findings and recommendations to War Room leadership across project types (policy, process, technology).",
+      ],
+    },
     {
       role:
         "Software Engineering Intern — Automation & Data Systems (Robotic Process Automation)",
@@ -149,7 +234,7 @@ export default function Home() {
       "Avoiding hindsight bias / realistic evaluation setups",
       "Communicating insights clearly (summaries + visuals)",
     ],
-    "Tools & Tech": ["Python", "OCaml", "SQL", "PyTorch", "Java", "C/C++", "R", "React", "Node.js", "HTML/CSS", "TypeScript", "GitHub", "Jira", "Docker", "Powershell", "NumPy", "Pandas", "Matplotlib", "RStudio"],
+    "Tools & Tech": ["Python", "OCaml", "SQL", "PyTorch", "Java", "C/C++", "R", "FastAPI", "React", "Node.js", "TypeScript", "HTML/CSS", "NumPy", "Pandas", "PySpark", "Matplotlib", "ETL Pipelines", "Machine Learning", "REST APIs", "Docker", "GitHub", "Jira", "Power BI", "Powershell", "DevOps", "RStudio"],
     "Collaboration": [
       "Stakeholder communication",
       "Working with business teams and analysts",
