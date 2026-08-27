@@ -37,7 +37,7 @@ export default function Home() {
     name: "Arush Manem",
     tagline: "Welcome to my portfolio.",
     subtag:
-      "Data Science and Computer Science student at the University of Minnesota. I've built production automation at HealthPartners and agentic triage pipelines at UnitedHealth Group — systems that business and operations teams depend on daily.",
+      "Honors Data Science and Computer Science student at the University of Minnesota. I've built production automation at HealthPartners and agentic triage pipelines at UnitedHealth Group — systems that business and operations teams depend on daily.",
     about: [
      "I’m interested in roles where I can combine quantitative analysis with technical problem-solving to create real-world impact. I enjoy working at the intersection of data, engineering, and business — building models and systems that turn messy information into clear, actionable decisions.",
       "Through internships and projects, I’ve learned that real problems rarely come with clean inputs or perfect requirements. I focus on developing reliable, explainable solutions that stakeholders can trust and use with confidence."
@@ -53,6 +53,7 @@ export default function Home() {
   const education = {
     school: "University of Minnesota, Twin Cities",
     location: "Minneapolis, MN",
+    degree: "Bachelor of Science, Honors Program",
     majors: "Data Science & Computer Science",
     grad: "May 2027",
     gpa: "3.8",
@@ -531,6 +532,9 @@ export default function Home() {
             <div className="text-sm text-muted">{education.grad}</div>
           </div>
           <div className="mt-3 text-sm text-[color:var(--foreground)]/80">
+            {education.degree}
+          </div>
+          <div className="mt-1 text-sm text-[color:var(--foreground)]/80">
             Majors: {education.majors} · GPA: {education.gpa}
           </div>
           <div className="mt-4">
