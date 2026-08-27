@@ -37,25 +37,31 @@ export default function Home() {
     name: "Arush Manem",
     tagline: "Welcome to my portfolio.",
     subtag:
-      "Honors Data Science and Computer Science student at the University of Minnesota. I've built production automation at HealthPartners and agentic triage pipelines at UnitedHealth Group — systems that business and operations teams depend on daily.",
+      "Data Science and Computer Science student at the University of Minnesota. I've built production automation at HealthPartners and agentic triage pipelines at UnitedHealth Group — systems that business and operations teams depend on daily.",
     about: [
      "I’m interested in roles where I can combine quantitative analysis with technical problem-solving to create real-world impact. I enjoy working at the intersection of data, engineering, and business — building models and systems that turn messy information into clear, actionable decisions.",
       "Through internships and projects, I’ve learned that real problems rarely come with clean inputs or perfect requirements. I focus on developing reliable, explainable solutions that stakeholders can trust and use with confidence."
     ],
     links: {
-      email: "manem008@umn.edu",
+      email: "manemarush@gmail.com",
       linkedin: "https://www.linkedin.com/in/arush-manem",
       github: "https://github.com/arushmanem",
-      resumeHref: "/ArushManem_Resume.pdf",
+      resumeHref: "/ArushManem_Resume.docx",
     },
   };
 
   const education = {
     school: "University of Minnesota, Twin Cities",
     location: "Minneapolis, MN",
-    majors: "Computer Science & Data Science",
+    majors: "Data Science & Computer Science",
     grad: "May 2027",
-    gpa: "3.78",
+    gpa: "3.8",
+    coursework: [
+      "Data Structures & Algorithms (CSCI 4041)",
+      "Operating Systems (CSCI 4061)",
+      "Probability & Statistics",
+      "Optimization",
+    ],
   };
 
   const caseStudies: CaseStudy[] = [
@@ -111,11 +117,67 @@ export default function Home() {
       ],
     },
     {
+      id: "readmission-risk-predictor",
+      title: "Readmission Risk Predictor",
+      subtitle: "30-Day Hospital Readmission ML Platform (team of 2)",
+      metaRight: "August 2026",
+      tech: ["Python", "Snowflake", "XGBoost", "SHAP", "Streamlit"],
+      links: {
+        github: "https://github.com/boyasuj27/readmission-risk-predictor",
+        demo: "",
+      },
+      sections: [
+        {
+          title: "Problem",
+          body: [
+            "Hospitals are penalized for patients who return within 30 days of discharge, but the readmissions that matter are the preventable ones. The goal was a model that flags high-risk patients early enough for a care team to act — and explains itself well enough that a clinician would actually trust the flag.",
+          ],
+        },
+        {
+          title: "Data and Feature Engineering",
+          body: [
+            "The whole pipeline runs on Snowflake, with SQL-based EDA and cleaning across 101K+ patient encounters. Rather than throwing raw columns at a model, we engineered 17 clinical features around the signals that actually drive readmission risk.",
+          ],
+          bullets: [
+            "Ran SQL-based exploratory analysis and cleaning over 101K+ encounters directly in Snowflake.",
+            "Engineered 17 clinical features including prior utilization, medication changes, discharge disposition, and A1C/glucose flags.",
+          ],
+        },
+        {
+          title: "Modeling Decisions",
+          body: [
+            "Only 11% of encounters were positive cases, so accuracy would have been a useless metric — a model predicting \"never readmitted\" would score 89%. We optimized for recall instead, since missing a high-risk patient costs far more than a false alarm that triggers an unnecessary follow-up call.",
+          ],
+          bullets: [
+            "Trained and compared logistic regression, random forest, and XGBoost with class-imbalance weighting on an 11% positive class.",
+            "Selected XGBoost with early stopping — AUC-ROC 0.68, recall 0.59 — accepting lower precision as a deliberate tradeoff.",
+          ],
+        },
+        {
+          title: "Deployment and Explainability",
+          body: [
+            "A risk score alone doesn't change what a care team does. We deployed a Streamlit app on Snowflake that pairs every prediction with the reasoning behind it and a concrete suggested action.",
+          ],
+          bullets: [
+            "Served per-patient SHAP waterfall explanations so a clinician can see exactly which factors drove an individual score.",
+            "Surfaced global feature importance to show which signals mattered across the whole population.",
+            "Generated automated, risk-tiered clinical intervention summaries that turn a probability into a recommended next step.",
+          ],
+        },
+        {
+          title: "What I Learned",
+          body: [
+            "Choosing the metric is a clinical decision, not a technical one. An AUC of 0.68 isn't impressive in isolation, but the honest framing is that readmission is genuinely hard to predict from administrative data — and a model that surfaces the right 59% of at-risk patients with a clear explanation is more useful than a higher score no one can act on.",
+          ],
+        },
+      ],
+    },
+    {
       id: "ai-operations-assistant",
       title: "AI Operations Assistant",
       subtitle: "Retrieval-Augmented Generation (RAG) System",
       metaRight: "Summer 2026",
-      tech: ["Python", "LangChain", "ChromaDB", "OpenAI API", "Streamlit", "RAG"],
+      tech: ["Python", "OpenAI API", "ChromaDB", "BM25", "pytest", "RAG"],
       links: {
         github: "https://github.com/arushmanem/OpAssistant",
         demo: "",
@@ -133,10 +195,11 @@ export default function Home() {
             "The pipeline is built in clean layers — ingestion, chunking, embedding, retrieval, synthesis — so each stage can be swapped or measured on its own. That separation is what later made systematic evaluation possible.",
           ],
           bullets: [
-            "Built PDF ingestion with character-level chunking and overlap, embedding generation via text-embedding-3-small, ChromaDB vector storage, and gpt-4o-mini answer synthesis.",
+            "Built PDF ingestion with chunking and overlap, embedding generation via text-embedding-3-small, ChromaDB vector storage, and gpt-4o-mini answer synthesis.",
             "Organized the system across a multi-layer architecture so retrieval strategy could change without touching ingestion or synthesis.",
-            "Added hybrid retrieval and scoped vector collections per document to keep results relevant as the corpus grew.",
-            "Shipped a Streamlit chat interface with a strict/advisor mode toggle, so the assistant's willingness to extrapolate is an explicit choice rather than a hidden default.",
+            "Implemented hybrid retrieval, fusing BM25 keyword search with dense embeddings via Reciprocal Rank Fusion to recover rare technical tokens that pure semantic search diluted.",
+            "Scoped vector collections per document to keep results relevant as the corpus grew.",
+            "Shipped a chat interface with a strict/advisor mode toggle, so the assistant's willingness to extrapolate is an explicit choice rather than a hidden default.",
           ],
         },
         {
@@ -240,10 +303,10 @@ export default function Home() {
       intro: `
         I spent the summer on UHG's CRC War Room — a cross-functional team, featured in Harvard Business Review, that tackles the most complex and systemic member issues across process, policy, and technology.
 
-        My work centered on agentic automation: building Python and SQL pipelines on Databricks that scaled the team's intelligent triage capability, plus the dashboards that made resolution outcomes and member impact visible to leadership.
+        My work centered on agentic automation: building Python and SQL pipelines on Databricks that scaled the team's intelligent triage capability, ultimately giving analysts back 1,820 hours a year, plus the dashboards that made resolution outcomes and member impact visible to leadership.
         `.trim(),
       bullets: [
-        "Engineered agentic automation pipelines in Python and SQL on Databricks to scale intelligent triage capabilities for the CRC War Room.",
+        "Engineered agentic automation pipelines in Python and SQL on Databricks to scale intelligent triage capabilities for the CRC War Room, saving 1,820 analyst hours per year and increasing efficiency by 70%.",
         "Contributed automation and data infrastructure whose outputs directly enabled the War Room's 2026 outcomes: 6.2M members impacted and 1.4M calls obviated enterprise-wide, with agentic triage expansion a driving force of that operational scale.",
         "Built real-time dashboards and operational data widgets in Power BI and ServiceNow to surface resolution outcomes and member impact signals across high-volume healthcare workflows.",
         "Partnered with project managers and triage analysts to translate operational bottlenecks into technical requirements, delivering end-to-end automation and data solutions across enterprise problem-solving workflows.",
@@ -284,8 +347,8 @@ export default function Home() {
       location: "Minneapolis, MN",
       date: "September 2024 – Present",
       bullets: [
-        "Presented insights on current data analytics methodologies in club and industry forums.",
-        "Engaged in industry networking and professional development through meetings with insurance leaders, career fairs, and workshops.",
+        "Present insights on cutting-edge data analytics methodologies in industry forums.",
+        "Network with insurance leaders and industry professionals through career fairs, workshops, and club meetings.",
       ],
     },
   ];
@@ -305,15 +368,18 @@ export default function Home() {
     ],
     "AI & Machine Learning": [
       "RAG pipelines (retrieval, chunking, embeddings)",
+      "Hybrid retrieval (BM25 + dense, RRF)",
       "LangChain",
       "ChromaDB",
       "OpenAI API",
       "PyTorch",
+      "XGBoost",
+      "SHAP explainability",
       "Agentic automation",
       "LLM-as-judge evaluation",
       "Prompt engineering",
     ],
-    "Tools & Tech": ["Python", "OCaml", "SQL", "PyTorch", "Java", "C/C++", "R", "FastAPI", "React", "Node.js", "TypeScript", "HTML/CSS", "NumPy", "Pandas", "PySpark", "Matplotlib", "ETL Pipelines", "Machine Learning", "REST APIs", "Databricks", "Docker", "GitHub", "Jira", "Power BI", "ServiceNow", "Powershell", "DevOps", "RStudio"],
+    "Tools & Tech": ["Python", "OCaml", "SQL", "PyTorch", "Java", "C/C++", "R", "FastAPI", "React", "Node.js", "TypeScript", "HTML/CSS", "NumPy", "Pandas", "PySpark", "Matplotlib", "ETL Pipelines", "Machine Learning", "REST APIs", "Snowflake", "Databricks", "Streamlit", "Docker", "GitHub", "Jira", "Power BI", "ServiceNow", "Powershell", "DevOps", "RStudio"],
     "Collaboration": [
       "Stakeholder communication",
       "Working with business teams and analysts",
@@ -466,6 +532,14 @@ export default function Home() {
           </div>
           <div className="mt-3 text-sm text-[color:var(--foreground)]/80">
             Majors: {education.majors} · GPA: {education.gpa}
+          </div>
+          <div className="mt-4">
+            <div className="text-sm font-semibold">Relevant Coursework</div>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {education.coursework.map((c) => (
+                <Chip key={c} label={c} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -668,7 +742,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Resume (PDF)
+              Resume
             </a>
           </div>
         </div>
