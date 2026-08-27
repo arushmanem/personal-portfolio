@@ -37,7 +37,7 @@ export default function Home() {
     name: "Arush Manem",
     tagline: "Welcome to my portfolio.",
     subtag:
-      "Honors Data Science and Computer Science student at the University of Minnesota with experience building automation, analytics workflows, and full-stack applications used by business and operations teams.",
+      "Honors Data Science and Computer Science student at the University of Minnesota. I've built production automation at HealthPartners and agentic triage pipelines at UnitedHealth Group — systems that business and operations teams depend on daily.",
     about: [
      "I’m interested in roles where I can combine quantitative analysis with technical problem-solving to create real-world impact. I enjoy working at the intersection of data, engineering, and business — building models and systems that turn messy information into clear, actionable decisions.",
       "Through internships and projects, I’ve learned that real problems rarely come with clean inputs or perfect requirements. I focus on developing reliable, explainable solutions that stakeholders can trust and use with confidence."
@@ -46,7 +46,7 @@ export default function Home() {
       email: "manem008@umn.edu",
       linkedin: "https://www.linkedin.com/in/arush-manem",
       github: "https://github.com/arushmanem",
-      resumeHref: "/ArushManem_Resume_Updated.docx",
+      resumeHref: "/ArushManem_Resume.pdf",
     },
   };
 
@@ -91,19 +91,69 @@ export default function Home() {
         {
           title: "Data and Modeling Decisions",
           body: [
-            "Right now, the dataset is static (it doesn’t refresh). The current prediction approach is intentionally simple: a linear baseline based on averages, rather than a live ML model.",
+            "I started with a deliberately simple linear baseline built on averages, so I'd understand the data and have a clear reference point before adding complexity. That baseline has since been replaced by a PyTorch neural network that forecasts player performance from historical matchups and home-field advantage — capturing the nonlinear interactions the linear model couldn't.",
             "To simulate a “live” setting, I designed the logic to predict a past week using only prior-week data from that season. This avoids hindsight bias and better mirrors real forecasting constraints.",
           ],
           bullets: [
-            "Started with a baseline model to understand the data and set a clear reference point for improvements.",
+            "Built an automated ETL pipeline to scrape, clean, and cache 5,000+ weekly records using nfl_data_py and Pandas.",
+            "Designed a custom statistical algorithm to quantify defensive metrics and forecast player performance from historical variance.",
+            "Replaced the rule-based baseline with a PyTorch deep learning inference pipeline, keeping the baseline as a benchmark to measure against.",
             "Simulated real-world constraints by restricting inputs to information available before the target week.",
           ],
         },
         {
           title: "Limitations and Roadmap",
           body: [
-            "The biggest limitation today is that predictions are based on linear averages and aren’t truly live. The model also needs more sophistication to capture nonlinear interactions and richer context.",
-            "My next step is migrating to a PyTorch-based model once I expand the dataset and define stronger evaluation metrics.",
+            "The dataset is still static rather than refreshing live, which is the main gap between this and a production forecasting system. Evaluation is also thinner than I'd like — I want stronger held-out metrics before I trust the network over the baseline in every case.",
+            "Next steps are wiring up live data ingestion and building out a proper evaluation harness so model changes can be judged on evidence rather than intuition.",
+          ],
+        },
+      ],
+    },
+    {
+      id: "ai-operations-assistant",
+      title: "AI Operations Assistant",
+      subtitle: "Retrieval-Augmented Generation (RAG) System",
+      metaRight: "Summer 2026",
+      tech: ["Python", "LangChain", "ChromaDB", "OpenAI API", "Streamlit", "RAG"],
+      links: {
+        github: "https://github.com/arushmanem/OpAssistant",
+        demo: "",
+      },
+      sections: [
+        {
+          title: "Problem",
+          body: [
+            "Most RAG demos work on a happy path and fall apart the moment you ask something the documents don't answer. I wanted to build one from scratch — no framework doing the thinking for me — and then prove whether it actually worked, including on questions designed to make it hallucinate.",
+          ],
+        },
+        {
+          title: "System and Engineering Decisions",
+          body: [
+            "The pipeline is built in clean layers — ingestion, chunking, embedding, retrieval, synthesis — so each stage can be swapped or measured on its own. That separation is what later made systematic evaluation possible.",
+          ],
+          bullets: [
+            "Built PDF ingestion with character-level chunking and overlap, embedding generation via text-embedding-3-small, ChromaDB vector storage, and gpt-4o-mini answer synthesis.",
+            "Organized the system across a multi-layer architecture so retrieval strategy could change without touching ingestion or synthesis.",
+            "Added hybrid retrieval and scoped vector collections per document to keep results relevant as the corpus grew.",
+            "Shipped a Streamlit chat interface with a strict/advisor mode toggle, so the assistant's willingness to extrapolate is an explicit choice rather than a hidden default.",
+          ],
+        },
+        {
+          title: "Evaluation",
+          body: [
+            "The part I'm most proud of is that this project is measured, not just built. I wrote an evaluation harness across 20 factual and adversarial test cases and used it as the source of truth for every retrieval change — if a change didn't move the numbers, it didn't ship.",
+          ],
+          bullets: [
+            "Measured Recall@k, MRR (0.873), LLM-as-judge scores, and adversarial refusal rate (100%).",
+            "Raised LLM-as-judge scores from 4.35 → 4.65/5 through iterative prompt engineering.",
+            "Diagnosed and fixed targeted failure cases in multi-entity synthesis queries, where the system had been retrieving correctly but merging entities in its answer.",
+          ],
+        },
+        {
+          title: "What I Learned",
+          body: [
+            "A 100% adversarial refusal rate mattered more to me than any accuracy number. Knowing when not to answer is the difference between a system someone can rely on and a confident liar — and you can't tune for that without an eval harness telling you the truth.",
           ],
         },
       ],
@@ -114,7 +164,10 @@ export default function Home() {
       subtitle: "Machine Learning System for Cost Projection",
       metaRight: "July 2025",
       tech: ["Python", "scikit-learn", "Pandas", "SHAP", "Jupyter"],
-      links: {},
+      links: {
+        github: "https://github.com/arushmanem/insurance-risk-assessor",
+        demo: "",
+      },
       sections: [
         {
           title: "Problem",
@@ -180,47 +233,62 @@ export default function Home() {
 
   const experience: TimelineItem[] = [
     {
-      role: "Data & Analytics Intern — Analytics Development Program, CRC War Room",
+      role: "Consumer Resolution Center War Room Intern",
       org: "UnitedHealth Group (UHG)",
-      location: "Minnetonka, MN",
-      date: "Summer 2026 (Incoming)",
+      location: "Eden Prairie, MN",
+      date: "June 2026 – August 2026",
       intro: `
-        This summer I'll be joining UHG's Analytics Development Program as part of the CRC War Room — a cross-functional team focused on solving the most complex, systemic member issues across process, policy, and technology, with work that impacts millions of members annually.
+        I spent the summer on UHG's CRC War Room — a cross-functional team, featured in Harvard Business Review, that tackles the most complex and systemic member issues across process, policy, and technology.
 
-        My focus will be building a clear measurement strategy for War Room projects: turning project activity into validated impact metrics like member impact, call obviation, and operational outcomes. The goal is to evolve War Room reporting from "what we worked on" to "what changed because of our work."
+        My work centered on agentic automation: building Python and SQL pipelines on Databricks that scaled the team's intelligent triage capability, plus the dashboards that made resolution outcomes and member impact visible to leadership.
         `.trim(),
       bullets: [
-        "Partner with War Room leaders, project managers, and triage analysts to define core success metrics aligned to enterprise goals (member impact, call obviation, repeat-call reduction, operational efficiency).",
-        "Design dashboards, trackers, and reporting frameworks that ingest project-level data and translate outcomes into validated impact metrics over time.",
-        "Translate business questions from project managers and analysts into analytic requirements, and analytic outputs back into clear executive-ready narratives.",
-        "Document measurement methodologies and assumptions, and present findings and recommendations to War Room leadership across project types (policy, process, technology).",
+        "Engineered agentic automation pipelines in Python and SQL on Databricks to scale intelligent triage capabilities for the CRC War Room.",
+        "Contributed automation and data infrastructure whose outputs directly enabled the War Room's 2026 outcomes: 6.2M members impacted and 1.4M calls obviated enterprise-wide, with agentic triage expansion a driving force of that operational scale.",
+        "Built real-time dashboards and operational data widgets in Power BI and ServiceNow to surface resolution outcomes and member impact signals across high-volume healthcare workflows.",
+        "Partnered with project managers and triage analysts to translate operational bottlenecks into technical requirements, delivering end-to-end automation and data solutions across enterprise problem-solving workflows.",
       ],
+      reflection:
+        "The hardest part wasn't the code — it was learning how much of the value came from correctly framing the problem with the people closest to it. A triage bottleneck described in operational language rarely maps cleanly onto a technical one, and the translation step is where most of the leverage lived.",
     },
     {
       role:
         "Software Engineering Intern — Automation & Data Systems (Robotic Process Automation)",
       org: "HealthPartners",
       location: "Bloomington, MN",
-      date: "June 2022 – Present",
+      date: "June 2022 – January 2026",
       intro: `
-        At HealthPartners, I designed and built production-grade automation systems used daily by business teams and analysts supporting healthcare operations.
-        
-        These automations replaced large volumes of manual, repetitive work across data entry, reporting, and web-based workflows, saving thousands of hours annually and contributing to over $1,000,000 in operational value.
-        
+        Over three and a half years at HealthPartners — starting as a high school technology intern and promoted into the RPA team in 2024 — I designed and built production-grade automation systems used daily by business teams and analysts supporting healthcare operations.
+
+        These automations replaced large volumes of manual, repetitive work across claims processing, QA, data entry, and web-based workflows, saving 37,000+ hours per year collectively.
+
         The systems I built were not proofs of concept — they were relied on in real workflows where failures directly blocked downstream work, making reliability, observability, and correctness essential.
         `.trim(),
       bullets: [
-        "Built end-to-end automations that processed Excel files with 4,000+ rows, programmatically mapping and entering data across multiple screens of complex web applications while validating field-level accuracy at each step.",
+        "Engineered scalable automation systems in UiPath/VB.NET to streamline claims processing, QA, and multi-system testing, reducing execution cycles and saving 37,000+ hours per year collectively.",
+        "Collaborated with developers, business analysts, and stakeholders as part of a team collectively saving $2M+ and producing $3.5M+ in additional revenue, contributing to a 3-year projected ROI of $3.86M.",
+        "Built and maintained ETL pipelines to extract, transform, and analyze healthcare claims data (4,000+ records per run), and contributed to automating 1.3M+ tasks previously handled by humans.",
+        "Automated web testing workflows for UI regression coverage, shortening release cycles and improving deployment efficiency by 90%.",
         "Designed robust error handling and logging pipelines to capture malformed data, missing fields, and unexpected UI states, enabling efficient debugging using large sets of sample and edge-case inputs.",
-        "Implemented automated output reports and email notifications to summarize successful runs and surface failed transactions for business stakeholders.",
-        "Developed payer-specific automation logic, including prompt-engineered workflows tailored to multiple external systems, working with data from Fortune 500 healthcare organizations.",
         "Solved frequent automation failures caused by fragile UI selectors, inconsistent inputs, and timing issues by inspecting underlying HTML, rewriting selectors for stability, and introducing adaptive waits and retries.",
-        "Automated authentication and user access flows for client systems, ensuring secure and repeatable execution across different environments.",
-        "Collaborated closely with business teams and analysts to translate operational requirements into reliable, maintainable automation solutions that scaled across transaction types and clients.",
+        "Explored AI-assisted orchestration with UiPath Maestro, integrating intelligent decisioning into multi-system processes — early exposure to distributed, intelligent automation.",
       ],
     },
   ];
   
+
+  const leadership: TimelineItem[] = [
+    {
+      role: "Active Member",
+      org: "Data Science Club",
+      location: "Minneapolis, MN",
+      date: "September 2024 – Present",
+      bullets: [
+        "Presented insights on current data analytics methodologies in club and industry forums.",
+        "Engaged in industry networking and professional development through meetings with insurance leaders, career fairs, and workshops.",
+      ],
+    },
+  ];
 
   const skills = {
     "Software Engineering": [
@@ -232,9 +300,20 @@ export default function Home() {
     "Data & Analytics": [
       "ETL thinking and data quality awareness",
       "Avoiding hindsight bias / realistic evaluation setups",
+      "Building eval harnesses to measure model and retrieval quality",
       "Communicating insights clearly (summaries + visuals)",
     ],
-    "Tools & Tech": ["Python", "OCaml", "SQL", "PyTorch", "Java", "C/C++", "R", "FastAPI", "React", "Node.js", "TypeScript", "HTML/CSS", "NumPy", "Pandas", "PySpark", "Matplotlib", "ETL Pipelines", "Machine Learning", "REST APIs", "Docker", "GitHub", "Jira", "Power BI", "Powershell", "DevOps", "RStudio"],
+    "AI & Machine Learning": [
+      "RAG pipelines (retrieval, chunking, embeddings)",
+      "LangChain",
+      "ChromaDB",
+      "OpenAI API",
+      "PyTorch",
+      "Agentic automation",
+      "LLM-as-judge evaluation",
+      "Prompt engineering",
+    ],
+    "Tools & Tech": ["Python", "OCaml", "SQL", "PyTorch", "Java", "C/C++", "R", "FastAPI", "React", "Node.js", "TypeScript", "HTML/CSS", "NumPy", "Pandas", "PySpark", "Matplotlib", "ETL Pipelines", "Machine Learning", "REST APIs", "Databricks", "Docker", "GitHub", "Jira", "Power BI", "ServiceNow", "Powershell", "DevOps", "RStudio"],
     "Collaboration": [
       "Stakeholder communication",
       "Working with business teams and analysts",
@@ -279,6 +358,9 @@ export default function Home() {
             </a>
             <a className="hover:text-[var(--foreground)] transition" href="#experience">
               Experience
+            </a>
+            <a className="hover:text-[var(--foreground)] transition" href="#leadership">
+              Leadership
             </a>
             <a className="hover:text-[var(--foreground)] transition" href="#skills">
               Skills
@@ -503,6 +585,32 @@ export default function Home() {
                   <p className="mt-2 text-sm text-[color:var(--foreground)]/80">{e.reflection}</p>
                 </div>
               ) : null}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Leadership */}
+      <section id="leadership" className="mx-auto max-w-5xl px-5 py-10">
+        <SectionTitle title="Leadership & Professional Development" />
+        <div className="mt-6 space-y-4">
+          {leadership.map((e) => (
+            <div key={e.role} className="rounded-3xl surface surface-hover p-6">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <div>
+                  <div className="text-lg font-semibold">{e.org}</div>
+                  <div className="text-sm text-muted">
+                    {e.role}
+                    {e.location ? ` · ${e.location}` : ""}
+                  </div>
+                </div>
+                <div className="text-sm text-muted">{e.date}</div>
+              </div>
+              <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-[color:var(--foreground)]/80">
+                {e.bullets.map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
