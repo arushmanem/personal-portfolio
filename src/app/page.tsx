@@ -37,14 +37,14 @@ export default function Home() {
     name: "Arush Manem",
     tagline: "Welcome to my portfolio.",
     subtag:
-      "Honors Data Science and Computer Science student at the University of Minnesota. I've built production automation at HealthPartners and agentic triage pipelines at UnitedHealth Group — systems that business and operations teams depend on daily.",
+      "Honors Data Science and Computer Science student at the University of Minnesota. I spent three and a half years building automation at HealthPartners, and this past summer building agentic triage pipelines at UnitedHealth Group. Both were systems real teams used every day.",
     about: [
-     "I’m interested in roles where I can combine quantitative analysis with technical problem-solving to create real-world impact. I enjoy working at the intersection of data, engineering, and business — building models and systems that turn messy information into clear, actionable decisions.",
-      "Through internships and projects, I’ve learned that real problems rarely come with clean inputs or perfect requirements. I focus on developing reliable, explainable solutions that stakeholders can trust and use with confidence."
+      "I like problems that sit between data and engineering. Most of my work has been for business and operations teams, which means the output has to be something a non-engineer can act on. That constraint shapes how I build.",
+      "Real problems rarely arrive with clean inputs. A lot of my time goes into the cases that break the happy path, and into making the result explainable enough that someone will trust it.",
     ],
     links: {
       email: "manemarush@gmail.com",
-      linkedin: "https://www.linkedin.com/in/arush-manem",
+      linkedin: "https://www.linkedin.com/in/arushmanem",
       github: "https://github.com/arushmanem",
       resumeHref: "/ArushManem_Resume.docx",
     },
@@ -80,14 +80,14 @@ export default function Home() {
         {
           title: "Problem",
           body: [
-            "Fantasy football decisions are often driven by gut feeling or raw averages. I wanted to explore whether historical data could be structured into clearer, more defensible recommendations.",
+            "Most start/sit advice comes down to gut feeling or a season average. I wanted to see how much better you could do using historical data that is already public.",
           ],
         },
         {
           title: "System and Engineering Decisions",
           body: [
-            "I approached SnapCount as a product, not a one-off notebook. The system is organized so data ingestion, analysis, and presentation are separated cleanly.",
-            "The experience I’m most proud of is the UI: it’s designed to be easy to use, with interactive visuals that make trends understandable quickly — not just a wall of numbers.",
+            "I built this as a product rather than a notebook. Ingestion, analysis, and presentation stay separate, which has made it easier to change one without breaking the others.",
+            "The interface got more attention than anything else in the project. A chart you can interact with communicates a trend faster than a table of numbers does.",
           ],
           bullets: [
             "Built a clear pipeline structure (ingest → analyze → present) so the app stays maintainable as features grow.",
@@ -98,8 +98,8 @@ export default function Home() {
         {
           title: "Data and Modeling Decisions",
           body: [
-            "I started with a deliberately simple linear baseline built on averages, so I'd understand the data and have a clear reference point before adding complexity. That baseline has since been replaced by a PyTorch neural network that forecasts player performance from historical matchups and home-field advantage — capturing the nonlinear interactions the linear model couldn't.",
-            "To simulate a “live” setting, I designed the logic to predict a past week using only prior-week data from that season. This avoids hindsight bias and better mirrors real forecasting constraints.",
+            "I started with a linear baseline built on averages. It was not meant to be good, only to give me a number worth beating. A PyTorch network replaced it later and picks up interactions the linear version could not, using historical matchups and home-field advantage.",
+            "To approximate a live setting, the model predicts a past week using only data available before that week. Without that restriction the results look considerably better than they actually are.",
           ],
           bullets: [
             "Built an automated ETL pipeline to scrape, clean, and cache 5,000+ weekly records using nfl_data_py and Pandas.",
@@ -111,8 +111,8 @@ export default function Home() {
         {
           title: "Limitations and Roadmap",
           body: [
-            "The dataset is still static rather than refreshing live, which is the main gap between this and a production forecasting system. Evaluation is also thinner than I'd like — I want stronger held-out metrics before I trust the network over the baseline in every case.",
-            "Next steps are wiring up live data ingestion and building out a proper evaluation harness so model changes can be judged on evidence rather than intuition.",
+            "The dataset does not refresh, so this is not a live forecasting system yet. Evaluation is thin too. I want better held-out metrics before I trust the network over the baseline everywhere.",
+            "Next is live ingestion, and an evaluation harness so I can judge model changes on evidence instead of intuition.",
           ],
         },
       ],
@@ -131,13 +131,13 @@ export default function Home() {
         {
           title: "Problem",
           body: [
-            "Hospitals are penalized for patients who return within 30 days of discharge, but the readmissions that matter are the preventable ones. The goal was a model that flags high-risk patients early enough for a care team to act — and explains itself well enough that a clinician would actually trust the flag.",
+            "Hospitals are penalized when patients return within 30 days of discharge. The readmissions worth predicting are the preventable ones. We wanted a model that flags those patients early enough for a care team to act, and that shows its reasoning clearly enough for a clinician to believe it.",
           ],
         },
         {
           title: "Data and Feature Engineering",
           body: [
-            "The whole pipeline runs on Snowflake, with SQL-based EDA and cleaning across 101K+ patient encounters. Rather than throwing raw columns at a model, we engineered 17 clinical features around the signals that actually drive readmission risk.",
+            "Everything runs on Snowflake. We did the exploratory work and cleaning in SQL across 101K+ patient encounters, then built 17 clinical features instead of handing raw columns to the model.",
           ],
           bullets: [
             "Ran SQL-based exploratory analysis and cleaning over 101K+ encounters directly in Snowflake.",
@@ -147,17 +147,17 @@ export default function Home() {
         {
           title: "Modeling Decisions",
           body: [
-            "Only 11% of encounters were positive cases, so accuracy would have been a useless metric — a model predicting \"never readmitted\" would score 89%. We optimized for recall instead, since missing a high-risk patient costs far more than a false alarm that triggers an unnecessary follow-up call.",
+            "Only 11% of encounters were positive, so accuracy was not a usable metric. A model that always predicted \"not readmitted\" would score 89%. We weighted for the imbalance and optimized recall, because missing a high-risk patient costs more than an unnecessary follow-up call.",
           ],
           bullets: [
             "Trained and compared logistic regression, random forest, and XGBoost with class-imbalance weighting on an 11% positive class.",
-            "Selected XGBoost with early stopping — AUC-ROC 0.68, recall 0.59 — accepting lower precision as a deliberate tradeoff.",
+            "Selected XGBoost with early stopping (AUC-ROC 0.68, recall 0.59), accepting lower precision as a deliberate tradeoff.",
           ],
         },
         {
           title: "Deployment and Explainability",
           body: [
-            "A risk score alone doesn't change what a care team does. We deployed a Streamlit app on Snowflake that pairs every prediction with the reasoning behind it and a concrete suggested action.",
+            "We deployed a Streamlit app on Snowflake so the output was usable by a care team rather than sitting in a notebook. Each prediction arrives with the factors that drove it and a suggested next step.",
           ],
           bullets: [
             "Served per-patient SHAP waterfall explanations so a clinician can see exactly which factors drove an individual score.",
@@ -168,7 +168,7 @@ export default function Home() {
         {
           title: "What I Learned",
           body: [
-            "Choosing the metric is a clinical decision, not a technical one. An AUC of 0.68 isn't impressive in isolation, but the honest framing is that readmission is genuinely hard to predict from administrative data — and a model that surfaces the right 59% of at-risk patients with a clear explanation is more useful than a higher score no one can act on.",
+            "An AUC of 0.68 is not a strong number. Readmission is hard to predict from administrative data alone, and I would rather report that plainly than tune until the metric looks better. What made the project useful was pairing a modest model with explanations a clinician could check.",
           ],
         },
       ],
@@ -187,13 +187,13 @@ export default function Home() {
         {
           title: "Problem",
           body: [
-            "Most RAG demos work on a happy path and fall apart the moment you ask something the documents don't answer. I wanted to build one from scratch — no framework doing the thinking for me — and then prove whether it actually worked, including on questions designed to make it hallucinate.",
+            "RAG demos usually work fine until you ask something the documents do not cover. I wanted to build the pipeline myself rather than lean on a framework, then test whether it held up against questions written specifically to make it hallucinate.",
           ],
         },
         {
           title: "System and Engineering Decisions",
           body: [
-            "The pipeline is built in clean layers — ingestion, chunking, embedding, retrieval, synthesis — so each stage can be swapped or measured on its own. That separation is what later made systematic evaluation possible.",
+            "The pipeline splits into layers: ingestion, chunking, embedding, retrieval, synthesis. Keeping them separate is what made it possible to measure each stage on its own later.",
           ],
           bullets: [
             "Built PDF ingestion with chunking and overlap, embedding generation via text-embedding-3-small, ChromaDB vector storage, and gpt-4o-mini answer synthesis.",
@@ -206,7 +206,7 @@ export default function Home() {
         {
           title: "Evaluation",
           body: [
-            "The part I'm most proud of is that this project is measured, not just built. I wrote an evaluation harness across 20 factual and adversarial test cases and used it as the source of truth for every retrieval change — if a change didn't move the numbers, it didn't ship.",
+            "I wrote an evaluation harness over 20 factual and adversarial test cases, then used it to judge every retrieval change I made. If a change did not move the numbers, it did not stay in.",
           ],
           bullets: [
             "Measured Recall@k, MRR (0.873), LLM-as-judge scores, and adversarial refusal rate (100%).",
@@ -217,7 +217,7 @@ export default function Home() {
         {
           title: "What I Learned",
           body: [
-            "A 100% adversarial refusal rate mattered more to me than any accuracy number. Knowing when not to answer is the difference between a system someone can rely on and a confident liar — and you can't tune for that without an eval harness telling you the truth.",
+            "The adversarial refusal rate ended up being the number I cared about most. Early versions would answer questions the documents did not cover, and those answers read as perfectly reasonable, which is the problem. The harness is what caught it.",
           ],
         },
       ],
@@ -236,17 +236,17 @@ export default function Home() {
         {
           title: "Problem",
           body: [
-            "Predict insurance costs from a mix of demographic and health factors, with enough explainability that a non-technical stakeholder can see why the model behaved the way it did. Accuracy alone isn't enough if the model is a black box.",
+            "Predict insurance costs from demographic and health inputs, with enough explainability that a non-technical stakeholder can see why a given number came out. A black box would not have been useful here.",
           ],
         },
         {
           title: "Implementation Decisions",
           body: [
-            "I built a modular ETL pipeline so preprocessing, outlier detection, and feature generation were clean separate steps — easy to swap or extend later. The model itself is a Random Forest regressor, chosen for a balance of accuracy and interpretability with tools like SHAP.",
+            "The ETL pipeline is modular, so preprocessing, outlier detection, and feature generation are separate steps I can swap or extend later. I chose a Random Forest regressor because it stays interpretable under SHAP without giving up much accuracy.",
           ],
           bullets: [
-            "Engineered interaction features (smoker–age, BMI–age) that captured nonlinear effects the base features couldn't.",
-            "Tuned the Random Forest to R² = 0.88 and MAE ≈ $2,600 — accurate enough to be meaningful for cost projection.",
+            "Engineered interaction features (smoker-age, BMI-age) that captured nonlinear effects the base features could not.",
+            "Tuned the Random Forest to R² = 0.88 and MAE of roughly $2,600, accurate enough to be meaningful for cost projection.",
             "Packaged the model with Pickle for reproducible, real-time deployment.",
             "Applied SHAP explainability to interpret which features drove individual predictions, so the model could be defended to stakeholders rather than just reported.",
           ],
@@ -254,7 +254,7 @@ export default function Home() {
         {
           title: "What I Learned",
           body: [
-            "Explainability isn't optional. Stakeholders rarely trust a number without understanding where it came from, and SHAP turned out to be the single most useful tool for closing that trust gap — far more than raw accuracy metrics.",
+            "Stakeholders did not trust a cost estimate until they could see what drove it. SHAP closed that gap faster than any accuracy improvement did.",
           ],
         },
       ],
@@ -262,7 +262,7 @@ export default function Home() {
     {
       id: "tcp-marketplace-server",
       title: "Multi-Threaded TCP Marketplace Server",
-      subtitle: "Operating Systems Coursework — Systems Programming in C",
+      subtitle: "Operating Systems Coursework, Systems Programming in C",
       metaRight: "CSCI 4061 PA4 · April 2026",
       tech: ["C", "POSIX Threads", "BSD Sockets", "Mutexes", "Signals"],
       links: {},
@@ -270,17 +270,17 @@ export default function Home() {
         {
           title: "Problem",
           body: [
-            "Build a multi-threaded TCP server simulating a marketplace where many clients connect concurrently to buy and sell from a shared inventory. The challenge is concurrency correctness — multiple threads touching the same shared state without race conditions — plus graceful shutdown and basic message obfuscation between client and server.",
+            "Build a TCP server for a marketplace where many clients connect at once and trade against shared inventory. The hard part is concurrency correctness, meaning several threads touching the same state without racing each other. It also needed graceful shutdown and a basic obfuscation layer on the wire.",
           ],
         },
         {
           title: "Implementation Decisions",
           body: [
-            "The server is structured around per-client worker threads, with the main thread accepting connections and dispatching work. Shared inventory state lives behind a mutex, so every read or write is serialized. Client–server messages are obfuscated with a Caesar-cipher layer at both ends.",
+            "Each client gets a worker thread. The main thread accepts connections and hands them off. Shared inventory sits behind a mutex so every read and write is serialized, and messages are Caesar-shifted at both ends.",
           ],
           bullets: [
             "Used pthreads for concurrent client handling, with mutex-protected critical sections around all inventory reads and writes.",
-            "Implemented a SIGTERM signal handler for graceful shutdown — draining in-flight requests and cleaning up resources across worker threads before exiting.",
+            "Implemented a SIGTERM handler for graceful shutdown, draining in-flight requests and cleaning up resources across worker threads before exiting.",
             "Added a Caesar-cipher message layer between client and server as a simple symmetric obfuscation step.",
             "Built socket setup, the accept loop, and per-client request parsing in pure C using BSD sockets.",
           ],
@@ -288,7 +288,7 @@ export default function Home() {
         {
           title: "What I Learned",
           body: [
-            "Concurrency is much harder than it looks on paper. The most useful lessons came from debugging subtle race conditions where two clients would simultaneously try to modify the same inventory item — issues that didn't reproduce reliably and only showed up under load. Getting comfortable with mutex granularity, deadlock avoidance, and signal handling in a multi-threaded context was the real takeaway.",
+            "The race conditions were the real lesson. Two clients modifying the same inventory item would corrupt state, but only under load, and never the same way twice. Getting the mutex granularity right took longer than writing the server did.",
           ],
         },
       ],
@@ -300,11 +300,11 @@ export default function Home() {
       role: "Consumer Resolution Center War Room Intern",
       org: "UnitedHealth Group (UHG)",
       location: "Eden Prairie, MN",
-      date: "June 2026 – August 2026",
+      date: "June 2026 - August 2026",
       intro: `
-        I spent the summer on UHG's CRC War Room — a cross-functional team, featured in Harvard Business Review, that tackles the most complex and systemic member issues across process, policy, and technology.
+        I spent the summer on UHG's CRC War Room, a cross-functional team that works on the most complex and systemic member issues. The team has been featured in Harvard Business Review.
 
-        My work centered on agentic automation: building Python and SQL pipelines on Databricks that scaled the team's intelligent triage capability, ultimately giving analysts back 1,820 hours a year, plus the dashboards that made resolution outcomes and member impact visible to leadership.
+        My piece was agentic automation. I built Python and SQL pipelines on Databricks that scaled the team's triage capability, along with the dashboards that made resolution outcomes visible to leadership. The automation gave analysts back roughly 1,820 hours a year.
         `.trim(),
       bullets: [
         "Engineered agentic automation pipelines in Python and SQL on Databricks to scale intelligent triage capabilities for the CRC War Room, saving 1,820 analyst hours per year and increasing efficiency by 70%.",
@@ -313,20 +313,19 @@ export default function Home() {
         "Partnered with project managers and triage analysts to translate operational bottlenecks into technical requirements, delivering end-to-end automation and data solutions across enterprise problem-solving workflows.",
       ],
       reflection:
-        "The hardest part wasn't the code — it was learning how much of the value came from correctly framing the problem with the people closest to it. A triage bottleneck described in operational language rarely maps cleanly onto a technical one, and the translation step is where most of the leverage lived.",
+        "The hardest part was not the code. Analysts would describe a bottleneck in operational terms, and turning that into something I could build usually took a few rounds of questions. That translation step is where most of my time went.",
     },
     {
-      role:
-        "Software Engineering Intern — Automation & Data Systems (Robotic Process Automation)",
+      role: "Software Engineering Intern, Robotic Process Automation",
       org: "HealthPartners",
       location: "Bloomington, MN",
-      date: "June 2022 – January 2026",
+      date: "June 2022 - January 2026",
       intro: `
-        Over three and a half years at HealthPartners — starting as a high school technology intern and promoted into the RPA team in 2024 — I designed and built production-grade automation systems used daily by business teams and analysts supporting healthcare operations.
+        I was at HealthPartners for three and a half years. I started as a high school technology intern and moved onto the RPA team in 2024, building automation systems that business teams and analysts used daily.
 
-        These automations replaced large volumes of manual, repetitive work across claims processing, QA, data entry, and web-based workflows, saving 37,000+ hours per year collectively.
+        The work replaced manual effort across claims processing, QA, and web-based workflows. Collectively those automations saved more than 37,000 hours a year.
 
-        The systems I built were not proofs of concept — they were relied on in real workflows where failures directly blocked downstream work, making reliability, observability, and correctness essential.
+        None of it was a prototype. If an automation broke, someone downstream was blocked that morning, which made reliability and logging the priority over anything clever.
         `.trim(),
       bullets: [
         "Engineered scalable automation systems in UiPath/VB.NET to streamline claims processing, QA, and multi-system testing, reducing execution cycles and saving 37,000+ hours per year collectively.",
@@ -335,7 +334,7 @@ export default function Home() {
         "Automated web testing workflows for UI regression coverage, shortening release cycles and improving deployment efficiency by 90%.",
         "Designed robust error handling and logging pipelines to capture malformed data, missing fields, and unexpected UI states, enabling efficient debugging using large sets of sample and edge-case inputs.",
         "Solved frequent automation failures caused by fragile UI selectors, inconsistent inputs, and timing issues by inspecting underlying HTML, rewriting selectors for stability, and introducing adaptive waits and retries.",
-        "Explored AI-assisted orchestration with UiPath Maestro, integrating intelligent decisioning into multi-system processes — early exposure to distributed, intelligent automation.",
+        "Explored AI-assisted orchestration with UiPath Maestro, integrating intelligent decisioning into multi-system processes.",
       ],
     },
   ];
@@ -346,7 +345,7 @@ export default function Home() {
       role: "Active Member",
       org: "Data Science Club",
       location: "Minneapolis, MN",
-      date: "September 2024 – Present",
+      date: "September 2024 - Present",
       bullets: [
         "Present insights on cutting-edge data analytics methodologies in industry forums.",
         "Network with insurance leaders and industry professionals through career fairs, workshops, and club meetings.",
@@ -629,7 +628,7 @@ export default function Home() {
       <section id="experience" className="mx-auto max-w-5xl px-5 py-10">
         <SectionTitle
           title="Experience"
-          subtitle="Focused on reliability, stakeholder impact, and how the work held up in real conditions."
+          subtitle="What I built, and how it held up once people depended on it."
         />
         <div className="mt-6 space-y-4">
           {experience.map((e) => (
