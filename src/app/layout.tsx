@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Arush Manem | Software Engineering & Automation",
   description:
-    "Personal portfolio of Arush Manem — software engineering, automation, data systems, and real-world production work.",
+    "Personal portfolio of Arush Manem. Software engineering, automation, and data systems built for production use.",
 };
 
 
