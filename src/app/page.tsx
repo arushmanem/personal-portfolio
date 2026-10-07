@@ -44,7 +44,7 @@ export default function Home() {
     ],
     links: {
       email: "manemarush@gmail.com",
-      linkedin: "https://www.linkedin.com/in/arushmanem",
+      linkedin: "https://www.linkedin.com/in/arush-manem",
       github: "https://github.com/arushmanem",
       resumeHref: "/ArushManem_Resume.docx",
     },
